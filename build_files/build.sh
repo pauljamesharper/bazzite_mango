@@ -35,6 +35,8 @@ PACKAGES=(
     acpi fd-find eog blueman gnome-pomodoro geany kitty
     # passwords (vdirsyncer and Emacs read their secrets from pass)
     pass pass-otp
+    # dotfiles (ujust dotfiles)
+    stow
     # fonts
     fontawesome4-fonts google-noto-color-emoji-fonts
     # theme build deps (removed again below)

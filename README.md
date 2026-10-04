@@ -54,7 +54,7 @@ Translated from mangowc-setup's package list:
 | Portals | `xdg-desktop-portal-wlr`, `-gtk` | Fedora |
 | Bar toggles | `pamixer`, `playerctl`, `brightnessctl`, `wlsunset`, `network-manager-applet`, `blueman` | Fedora |
 | Apps | `kitty`, `geany`, `eog`, `pavucontrol`, `gnome-pomodoro`, `wdisplays` | Fedora |
-| Passwords | `pass`, `pass-otp` | Fedora |
+| Passwords, dotfiles | `pass`, `pass-otp`, `stow` | Fedora |
 | Fonts | JetBrainsMono, FiraCode and SauceCodePro Nerd Fonts, Font Awesome, Noto Color Emoji | Nerd Fonts releases, Fedora |
 | Themes | Orchis (GTK, Nord tweak) and Colloid icons (8 dark variants) | vinceliuice, built at image build time |
 | Wallpapers | [drewgrif/wallpapers](https://github.com/drewgrif/wallpapers), Omarchy theme backgrounds | Git, at image build time |
@@ -76,7 +76,7 @@ system_files/                    copied onto / in the image
   usr/bin/mango-session          login wrapper: sources ~/.config/mango/env, execs mango
   usr/bin/bazzite-mango-setup    copies the dotfiles into ~/.config/mango
   usr/share/bazzite-mango/config the dotfiles (mango, quickshell, rofi, dunst, kitty, scripts)
-  usr/share/ublue-os/just/60-custom.just   ujust mango-setup / mango-apps
+  usr/share/ublue-os/just/60-custom.just   ujust dotfiles / mango-setup / mango-apps
   usr/share/wayland-sessions/mango.desktop
   usr/share/xdg-desktop-portal/mango-portals.conf
 ```
