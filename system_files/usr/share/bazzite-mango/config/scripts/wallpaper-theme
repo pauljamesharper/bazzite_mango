@@ -189,11 +189,24 @@ fi
 #    logins. Written as a literal $HOME path so the file stays portable.
 #    The dunst symlink follows the active session's config.
 pgrep -x awww-daemon >/dev/null 2>&1 || { awww-daemon >/dev/null 2>&1 9>&- & sleep 0.5; }
+#    WALLPAPER_OUTPUTS (from theme-set) holds "<output> <image>" lines that
+#    override $IMG on those outputs; they are persisted on the same line.
+conf_path() {
+    p="$(readlink -f "$1")"
+    case "$p" in "$HOME"/*) printf '%s' "\$HOME${p#"$HOME"}" ;; *) printf '%s' "$p" ;; esac
+}
 awww img "$IMG" --resize crop --transition-type wipe --transition-angle 30 \
     --transition-fps 60 --transition-duration 1 >/dev/null 2>&1 || true
-IMG_ABS="$(readlink -f "$IMG")"
-case "$IMG_ABS" in "$HOME"/*) IMG_CONF="\$HOME${IMG_ABS#"$HOME"}" ;; *) IMG_CONF="$IMG_ABS" ;; esac
-sed -i "s|^exec-once=awww img .*|exec-once=awww img $IMG_CONF --resize crop|" "$CONFIG_DIR/config.conf"
+AWWW_CONF="awww img $(conf_path "$IMG") --resize crop"
+while read -r out oimg; do
+    [ -n "$out" ] && [ -f "$oimg" ] || continue
+    awww img -o "$out" "$oimg" --resize crop --transition-type wipe --transition-angle 30 \
+        --transition-fps 60 --transition-duration 1 >/dev/null 2>&1 || true
+    AWWW_CONF="$AWWW_CONF; awww img -o $out $(conf_path "$oimg") --resize crop"
+done <<EOF
+${WALLPAPER_OUTPUTS:-}
+EOF
+sed -i "s|^exec-once=awww img .*|exec-once=$AWWW_CONF|" "$CONFIG_DIR/config.conf"
 mkdir -p "$HOME/.cache/mango" "$HOME/.config/dunst"
 echo "$IMG" > "$HOME/.cache/mango/current_wallpaper"
 ln -sfn "$CONFIG_DIR/dunst/dunstrc" "$HOME/.config/dunst/dunstrc"

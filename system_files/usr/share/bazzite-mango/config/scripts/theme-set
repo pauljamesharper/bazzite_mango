@@ -25,6 +25,21 @@ if [ -z "$IMG" ]; then
 fi
 [ -f "$IMG" ] || { echo "no background for theme $NAME" >&2; exit 1; }
 
+# Per-output overrides: backgrounds/.outputs/<image name>.conf lists
+# "<output> <image>" lines (image relative to .outputs/) shown on that
+# output instead of $IMG, e.g. a matching pair for laptop + monitor.
+MAP="$DIR/backgrounds/.outputs/$(basename "$IMG").conf"
+WALLPAPER_OUTPUTS=""
+if [ -f "$MAP" ]; then
+    WALLPAPER_OUTPUTS="$(while read -r out f; do
+        case "$out" in ''|'#'*) continue ;; esac
+        case "$f" in /*) ;; *) f="$DIR/backgrounds/.outputs/$f" ;; esac
+        [ -f "$f" ] || { echo "theme-set: missing $f for $out" >&2; continue; }
+        printf '%s %s\n' "$out" "$f"
+    done < "$MAP")"
+fi
+export WALLPAPER_OUTPUTS
+
 # key = "#hex" → shell var c_<key>; mode = "dark|light" → c_mode
 eval "$(sed -n 's/^\([a-z_]*\) *= *"\(#[0-9a-fA-F]*\|dark\|light\)".*/c_\1="\2"/p' "$TOML")"
 
