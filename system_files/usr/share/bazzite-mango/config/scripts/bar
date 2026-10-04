@@ -6,6 +6,13 @@
 #   bar log       tail the instance log
 #   bar <args>    any other qs subcommand, e.g. `bar ipc show`
 P="$(dirname "$(dirname "$(readlink -f "$0")")")/quickshell"
+# qs matches instances by the literal config path, and on Fedora Atomic
+# readlink -f turns /home/... into /var/home/... — so a bar started as
+# /home/... (e.g. by mango's exec-once) wouldn't be found by kill. Use the
+# $HOME spelling, and kill under both spellings to catch either.
+HOME_REAL="$(readlink -f "$HOME")"
+case "$P" in "$HOME_REAL"/*) P="$HOME${P#"$HOME_REAL"}" ;; esac
+P_REAL="$(readlink -f "$P")"
 
 # The daemon inherits this shell's cwd and passes it to everything it
 # spawns; launched from a directory that later gets deleted, every child
@@ -13,7 +20,10 @@ P="$(dirname "$(dirname "$(readlink -f "$0")")")/quickshell"
 cd "$HOME" || cd /
 
 case "${1:-restart}" in
-    restart) qs -p "$P" kill 2>/dev/null; sleep 0.5; exec qs -p "$P" -d -n ;;
+    restart)
+        qs -p "$P" kill 2>/dev/null
+        [ "$P_REAL" = "$P" ] || qs -p "$P_REAL" kill >/dev/null 2>&1
+        sleep 0.5; exec qs -p "$P" -d -n ;;
     log)     exec qs -p "$P" log ;;
     *)       exec qs -p "$P" "$@" ;;
 esac
