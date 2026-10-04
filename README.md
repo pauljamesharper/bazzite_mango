@@ -56,6 +56,7 @@ Translated from mangowc-setup's package list:
 | Apps | `kitty`, `emacs`, `geany`, `eog`, `pavucontrol`, `gnome-pomodoro`, `wdisplays` | Fedora |
 | Passwords, dotfiles | `pass`, `pass-otp`, `stow` | Fedora |
 | Fonts | JetBrainsMono, FiraCode and SauceCodePro Nerd Fonts, Font Awesome, Noto Color Emoji | Nerd Fonts releases, Fedora |
+| TTY font | Terminus 12×24 doubled to 24×48 (`ter-v48b-x2`, 3× the default) | Fedora, built at image build time |
 | Themes | Orchis (GTK, Nord tweak) and Colloid icons (8 dark variants) | vinceliuice, built at image build time |
 | Wallpapers | [drewgrif/wallpapers](https://github.com/drewgrif/wallpapers), Omarchy theme backgrounds | Git, at image build time |
 

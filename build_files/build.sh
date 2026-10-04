@@ -39,8 +39,8 @@ PACKAGES=(
     emacs
     # dotfiles (ujust dotfiles)
     stow
-    # fonts
-    fontawesome4-fonts google-noto-color-emoji-fonts
+    # fonts (terminus: source for the TTY font below)
+    fontawesome4-fonts google-noto-color-emoji-fonts terminus-fonts-console
     # theme build deps (removed again below)
     sassc
 )
@@ -58,6 +58,18 @@ for font in JetBrainsMono FiraCode SourceCodePro; do
         tar -xJ -C "$NF/$font"
 done
 fc-cache -f "$NF"
+
+### TTY font: Terminus 12x24 pixel-doubled to 24x48, 3x the default
+### 8x16 (Terminus itself stops at 32px). The generated font is
+### /usr/lib/kbd/consolefonts/ter-v48b-x2.psf.gz.
+CF=/usr/lib/kbd/consolefonts
+python3 /ctx/psf2x.py "$CF/ter-v24b.psf.gz" "$CF/ter-v48b-x2.psf.gz"
+if grep -q '^FONT=' /etc/vconsole.conf 2>/dev/null; then
+    sed -i 's/^FONT=.*/FONT="ter-v48b-x2"/' /etc/vconsole.conf
+else
+    echo 'FONT="ter-v48b-x2"' >> /etc/vconsole.conf
+fi
+grep -qx 'FONT="ter-v48b-x2"' /etc/vconsole.conf
 
 ### GTK + icon themes (vinceliuice), same variants as butterscripts'
 ### install_wallpaper_theme.sh. wallpaper-theme recolours Orchis-Dark-Nord.
