@@ -62,7 +62,7 @@ Changes from the Debian version:
 
 - **No display manager installer.** Bazzite's SDDM lists Mango next to Plasma.
 - **No `power-profiles-daemon`.** Bazzite's `tuned-ppd` provides the same `powerprofilesctl` interface.
-- **GUI apps are Flatpaks.** The Firefox, GIMP, OBS and Discord keybindings use `flatpak run`; `ujust mango-apps` installs them.
+- **GUI apps are Flatpaks.** The Firefox, Brave, GIMP, OBS and Discord keybindings use `flatpak run`; `ujust mango-apps` installs them.
 - **Updates go through `ujust update`.** The bar's update counter counts a pending system image plus Flatpak updates, instead of apt upgrades.
 - **`mango-session`** (from butterrepo's packaging) is included, so `~/.config/mango/env` is still sourced at login.
 
@@ -93,7 +93,7 @@ Then, as your user:
 
 ```bash
 ujust mango-setup   # dotfiles, themes and wallpapers into ~/.config/mango
-ujust mango-apps    # optional: Firefox, GIMP, OBS, Discord Flatpaks
+ujust mango-apps    # optional: Firefox, Brave, GIMP, OBS, Discord Flatpaks
 ```
 
 Log out and pick **Mango** at the login screen. Press `Super + /` for keybindings.
