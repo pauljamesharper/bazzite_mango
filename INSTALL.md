@@ -71,7 +71,7 @@ As your normal user (not sudo):
 
 ```bash
 ujust mango-setup   # dotfiles, themes and wallpapers into ~/.config/mango
-ujust mango-apps    # optional: Firefox, Brave, GIMP, OBS, Discord Flatpaks (VPN on)
+ujust mango-apps    # optional: Firefox, Brave, GIMP, OBS, Discord, Telegram Flatpaks (VPN on)
 ```
 
 Optionally restore the weather location:
