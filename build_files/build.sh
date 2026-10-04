@@ -28,7 +28,7 @@ PACKAGES=(
     # ui
     nwg-look nwg-displays wdisplays xsettingsd lxpolkit
     # file manager
-    nautilus gvfs-smb gvfs-fuse udiskie
+    gvfs-smb gvfs-fuse udiskie
     # audio
     pavucontrol
     # utilities
