@@ -94,7 +94,7 @@ Then, as your user:
 
 ```bash
 ujust mango-setup   # dotfiles, themes and wallpapers into ~/.config/mango
-ujust mango-apps    # optional: Firefox, Brave, GIMP, OBS, Discord Flatpaks
+ujust mango-apps    # optional: Firefox, Brave, GIMP, OBS, Discord, Telegram, Slack Flatpaks
 ```
 
 Log out and pick **Mango** at the login screen. Press `Super + /` for keybindings.

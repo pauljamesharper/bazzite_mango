@@ -20,6 +20,7 @@ dotfiles:
 mango-setup:
     /usr/bin/bazzite-mango-setup
 
-# Install the Flatpak apps the Mango keybindings launch (Firefox, Brave, GIMP, OBS, Discord)
+# Install the Flatpak apps: the ones the Mango keybindings launch (Firefox, Brave,
+# GIMP, OBS, Discord) plus Telegram and Slack
 mango-apps:
-    flatpak install --user -y flathub org.mozilla.firefox com.brave.Browser org.gimp.GIMP com.obsproject.Studio com.discordapp.Discord
+    flatpak install --user -y flathub org.mozilla.firefox com.brave.Browser org.gimp.GIMP com.obsproject.Studio com.discordapp.Discord org.telegram.desktop com.slack.Slack
