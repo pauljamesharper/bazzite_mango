@@ -100,6 +100,8 @@ git config --global user.name "Paul Harper"
 git config --global user.email harper.paul.j@gmail.com
 git clone git@github.com:pauljamesharper/bazzite_mango.git ~/git/bazzite_mango
 cp /run/media/$USER/<disk>/cosign.key ~/git/bazzite_mango/   # git ignores it
+ujust dotfiles      # clone ~/dotfiles and stow every package
+mise install        # the CLI tools from ~/.config/mise/config.toml
 ```
 
 ## Updates
