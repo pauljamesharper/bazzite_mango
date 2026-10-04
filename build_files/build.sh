@@ -35,6 +35,8 @@ PACKAGES=(
     acpi fd-find eog blueman gnome-pomodoro geany kitty
     # passwords (vdirsyncer and Emacs read their secrets from pass)
     pass pass-otp
+    # editor (Super+E opens a frame on the Emacs daemon)
+    emacs
     # dotfiles (ujust dotfiles)
     stow
     # fonts
