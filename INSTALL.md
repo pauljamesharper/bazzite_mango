@@ -56,13 +56,23 @@ systemctl reboot
 ```
 
 This downloads about 7 GB. `rebase` (rather than `bootc switch`) keeps the
-layered Mullvad package. "unverified" skips the signature check, which is
-normal for a custom image.
+layered Mullvad package. "unverified" skips the signature check: stock Bazzite
+doesn't have this image's key yet. The image ships the key
+(`/etc/pki/containers/bazzite_mango.pub`) and a policy rule requiring it, so
+once booted, switch to the signed reference:
+
+```bash
+sudo rpm-ostree rebase ostree-image-signed:docker://ghcr.io/pauljamesharper/bazzite_mango:latest
+systemctl reboot
+```
+
+This only re-downloads changed layers. From then on every update is checked
+against `cosign.pub`, and an unsigned or wrongly signed image is refused.
 
 Check it took:
 
 ```bash
-rpm-ostree status    # the booted (●) entry should say pauljamesharper/bazzite_mango
+rpm-ostree status    # the booted (●) entry should say ostree-image-signed:docker://ghcr.io/pauljamesharper/bazzite_mango
 ```
 
 ## 4. Set up Mango

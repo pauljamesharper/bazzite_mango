@@ -109,7 +109,20 @@ dnf5 -y remove sassc
 cp -avf /ctx/system_files/. /
 chmod +x /usr/bin/mango-session /usr/bin/bazzite-mango-setup "$DATA"/config/scripts/*
 
+### Signature trust: require this image to be signed with cosign.pub, the
+### same way the base image trusts ublue-os.pub. The key and the
+### registries.d entry come from system_files; this adds the policy rule.
+POLICY=/etc/containers/policy.json
+jq '.transports.docker["ghcr.io/pauljamesharper/bazzite_mango"] = [{
+        "type": "sigstoreSigned",
+        "keyPath": "/etc/pki/containers/bazzite_mango.pub",
+        "signedIdentity": {"type": "matchRepository"}
+    }]' "$POLICY" > "$POLICY.new"
+mv "$POLICY.new" "$POLICY"
+
 ### Sanity checks: fail the build rather than ship a broken session
 mango -v
 mango -p -c "$DATA/config/config.conf"
 command -v qs awww awww-daemon mmsg
+jq -e '.transports.docker["ghcr.io/pauljamesharper/bazzite_mango"][0].type == "sigstoreSigned"' "$POLICY"
+test -s /etc/pki/containers/bazzite_mango.pub
