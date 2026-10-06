@@ -113,7 +113,9 @@ Bazzite updates. It pushes to `ghcr.io/pauljamesharper/bazzite_mango`. The
 image is signed with cosign: generate a key pair with
 `COSIGN_PASSWORD="" cosign generate-key-pair`, commit `cosign.pub`, and store
 `cosign.key` as the `SIGNING_SECRET` repository secret. Never commit
-`cosign.key`.
+`cosign.key`. The image trusts its own signature: `cosign.pub` is shipped as
+`system_files/etc/pki/containers/bazzite_mango.pub` (keep the two identical
+if you rotate the key) and `build.sh` adds the matching `policy.json` rule.
 
 ISO and disk images can be built with the `build-disk` workflow, using the
 configs in `disk_config/`.
